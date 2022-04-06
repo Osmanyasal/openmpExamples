@@ -1,2 +1,2 @@
 # openmpExamples
-openMP examples
+some openMP examples
