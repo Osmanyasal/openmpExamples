@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <omp.h>
 #include "macros/parallel.h"
+#include "macros/ompwrapper.h"
 
 typedef struct Matrix
 {
@@ -22,3 +22,6 @@ extern Matrix *Matrix_add(Matrix *m, Matrix *n);
 
 PARALLEL_FUNC
 extern Matrix *Matrix_sub(Matrix *m, Matrix *n);
+ 
+PARALLEL_FUNC
+extern Matrix *Matrix_mul(Matrix *m, Matrix *n);
