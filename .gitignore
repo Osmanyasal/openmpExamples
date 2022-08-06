@@ -1,3 +1,6 @@
+#anyfile that's hidden
+.*
+
 # Prerequisites
 *.d
 

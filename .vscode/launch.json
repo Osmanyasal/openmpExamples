@@ -5,10 +5,22 @@
     "version": "0.2.0",
     "configurations": [
     {
-        "name": "(lldb) Launch",
+        "name": "(lldb) 4-Matrix Operations",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${workspaceFolder}/5-primeNumbers/a.out",
+        "program": "${workspaceFolder}/4-matrixOperations/a.out",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${fileDirname}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "lldb"
+    },
+    {
+        "name": "(lldb) 3-Synchronization",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/3-synchronization/a.out",
         "args": [],
         "stopAtEntry": false,
         "cwd": "${fileDirname}",
