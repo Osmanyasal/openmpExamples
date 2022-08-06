@@ -7,38 +7,15 @@
 
 int main(int argc, char *argv[])
 {
-    Matrix *m1 = Matrix_new(2,3);
-    Matrix *m2 = Matrix_new(3,2);
+    Matrix *m1 = Matrix_new(200,300);
 
-    m1->arr[0][0] = 3;
-    m1->arr[0][1] = -2;
-    m1->arr[0][2] = 5;
- 
+    int m2[10][10];
 
-    m1->arr[1][0] = 3;
-    m1->arr[1][1] = 0;
-    m1->arr[1][2] = 4;
+    printf("%p\t%p\n",&m1->arr[0][0],&m1->arr[0][1]);
+    printf("%p\t%p\n",&m1->arr[0][0],&m1->arr[1][0]);
+    printf("----\n");
+    printf("%p\t%p\n",&m2[0][0],&m2[0][1]);
+    printf("%p\t%p\n",&m2[0][0],&m2[1][0]);
 
-    //000
-
-    m2->arr[0][0] = 2;
-    m2->arr[0][1] = 3;
- 
-
-    m2->arr[1][0] = -9;
-    m2->arr[1][1] = 0;
-
-    m2->arr[2][0] = 0;
-    m2->arr[2][1] = 4;
-
-    Matrix_toString(m1);
-
-    printf("\n\n***\n\n");
-    
-    Matrix_toString(m2);
-
-    Matrix *res = Matrix_mul(m1,m2);
-
-    printf("\n\n***\n\n");
-    Matrix_toString(res);
+    free(m1);
 }

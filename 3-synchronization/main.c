@@ -1,20 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <omp.h>
+#include <string.h>
+#include <unistd.h>
+#include <assert.h>
+//#include <omp.h>
+#include "student.h"
 
-int main(int argc, char *argv[])
+void yaz()
 {
-    int sh = 1;
+}
+int main(int argc, char **argv)
+{
+       printf("%p\n", &yaz);
 
-    omp_set_num_threads(3);
-    #pragma omp parallel shared(sh)
-    {
-        printf("TH %d\tsh %d\n",omp_get_thread_num(),sh);
-        #pragma omp single
-        {
-            sh++; 
-            printf("------\n");
-        }
-        printf("AFTER TH %d\tsh %d\n",omp_get_thread_num(),sh);        
-    }
+       printf("%ld\n", __STDC_VERSION__);
+       Student *osman = Student_init(2035, "osman yasal", 26);
+       printf("%s\n", osman->obj->toString((Object *)osman));
+
+       return 0; // Noncompliant, file f has not been closed
 }

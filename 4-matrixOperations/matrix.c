@@ -24,9 +24,10 @@ Matrix *Matrix_mul(Matrix *m, Matrix *n)
     Matrix *res = NULL;
     if (isMulSizeEqual(m, n))
         res = (Matrix *)Matrix_new(m->_i, n->_j);
-    else
+    else{
         perror("Sizes are not appropriate to eachother!!");
-        
+        return res;
+    }
     #pragma omp parallel for
     for (int i = 0; i < m->_i; i++) // res->_i
         for (int j = 0; j < n->_j; j++) // res->_j

@@ -8,12 +8,11 @@ int main(int argc, char *argv[])
 { 
      int verbose = 0;
      int printCount = 1;
-     const int LIMIT = 500000;
+     const int LIMIT = 500000; // 500_000
      double start,end,serial,parallel;
 
      int iteration = 3;
      for(int i=0;i<iteration;i++){
-
           start = omp_get_wtime();
           printf("serial :\n");
           serialPrimeExec(LIMIT,printCount,verbose);

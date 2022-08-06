@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include "prime.h"
 
-int *findPrimeNumbersUpto(int num, int *len)
+static int *findPrimeNumbersUpto(int num, int *len)
 {
-    int *arr = malloc(sizeof(int) * num);
+    int *arr = malloc(sizeof(int) * num); // stores the local prime numbers eg. 2 3 5 7 11 13 etc.  
     int arrIndex = 0;
     int flag = 1;
     for (int i = 2; i < num; i++)

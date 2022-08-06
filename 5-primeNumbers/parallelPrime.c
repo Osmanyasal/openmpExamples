@@ -4,6 +4,8 @@
 #include <omp.h>
 #include "prime.h"
 
+// 2 3 5 7 13
+// 17 19 23 etc.
 typedef struct ParallelPrimeNode
 {
     int *localPrimeList;
@@ -19,7 +21,7 @@ static ParallelPrimeNode *ParallelPrime_new(int localLimit)
     ParallelPrimeNode *node = (ParallelPrimeNode *)malloc(sizeof(ParallelPrimeNode));
     node->localLimit = localLimit;
     node->localIndex = 0;
-    node->localPrimeList = (int*)malloc(sizeof(int) * node->localLimit);
+    node->localPrimeList = (int *)malloc(sizeof(int) * node->localLimit);
     node->next = NULL;
     return node;
 }
@@ -29,14 +31,14 @@ static void evaluate(ParallelPrimeNode *node, int num)
     bool isPrime = isLocalPrime(node, num);
     if (isPrime && (node->localLimit > node->localIndex))
     {
-        #pragma omp critical
-            node->localPrimeList[(node->localIndex)++] = num;
+#pragma omp critical
+        node->localPrimeList[(node->localIndex)++] = num;
     }
     else if (isPrime)
     {
         if (node->next == NULL)
         {
-            #pragma omp critical
+#pragma omp critical
             {
                 if (node->next == NULL)
                     node->next = (ParallelPrimeNode *)ParallelPrime_new(node->localLimit);
@@ -56,10 +58,8 @@ static bool isLocalPrime(ParallelPrimeNode *node, int num)
     for (int i = 0; i < tmp; i++)
     {
         int arrNum = node->localPrimeList[i];
-        if(arrNum == 0){
-            //printf("IT WAS ZEROOOOOOOOOOOOOO");
+        if (arrNum == 0)
             continue;
-        }
         else if (num % arrNum == 0)
         {
             isPrime = false;
@@ -69,19 +69,19 @@ static bool isLocalPrime(ParallelPrimeNode *node, int num)
     return isPrime;
 }
 
-void parallelPrimeExec(const int limit, int printCount, int verbose,int localSize)
-{ 
+void parallelPrimeExec(const int limit, int printCount, int verbose, int localSize)
+{
     ParallelPrimeNode *head = ParallelPrime_new(localSize);
 
-    #pragma omp parallel
+#pragma omp parallel
     {
-        #pragma omp for schedule(dynamic)
+#pragma omp for schedule(dynamic) nowait // 2 100 -> 2 40, 41 60,
         for (int i = 2; i < limit; i++)
         {
             evaluate(head, i);
         }
-    }
-    
+    } // implied barrier here
+
     ParallelPrimeNode *tmp = head;
     int len = 0;
     while (tmp != NULL)
@@ -91,6 +91,6 @@ void parallelPrimeExec(const int limit, int printCount, int verbose,int localSiz
         len += tmp->localIndex;
         tmp = tmp->next;
     }
-    printf("size..:%d\n",len); 
+    printf("size..:%d\n", len);
     free(head);
 }

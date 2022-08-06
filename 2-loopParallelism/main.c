@@ -6,11 +6,10 @@ extern void sumBenchmark();
 int main(int argc,char *argv[]){
 
     //sumBenchmark();
-    #pragma omp parallel
+    #pragma omp parallel num_threads(10)
     {
         printf("hello world %d\n",omp_get_thread_num());
 
-        omp_set_num_threads(10);
         #pragma omp single
         {   
             printf("inner world %d\n",omp_get_thread_num());
